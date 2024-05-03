@@ -17,5 +17,6 @@
 
 Let's play the game: https://noh-yoon-jae.github.io/Number-guessing-game
 # original site
-https://developer.mozilla.org/ko/docs/Learn/JavaScript/First_steps/A_first_splash
-https://github.com/mdn/learning-area/blob/main/javascript/introduction-to-js-1/first-splash/number-guessing-game.html
++ https://developer.mozilla.org/ko/docs/Learn/JavaScript/First_steps/A_first_splash
+
++ https://github.com/mdn/learning-area/blob/main/javascript/introduction-to-js-1/first-splash/number-guessing-game.html
