@@ -16,7 +16,7 @@
   In the upgraded version, the method for validating input values is improved. If a non-numeric value is entered, a feature is added to redirect the user back to the game screen, enhancing user experience.
 
 Let's play the game: https://noh-yoon-jae.github.io/Number-guessing-game
-# original site
+# Original Site
 + https://developer.mozilla.org/ko/docs/Learn/JavaScript/First_steps/A_first_splash
 
 + https://github.com/mdn/learning-area/blob/main/javascript/introduction-to-js-1/first-splash/number-guessing-game.html
