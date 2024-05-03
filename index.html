@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Number guessing game</title>
+
+        <style>
+            html {
+                font-family: sans-serif;
+            }
+
+            body {
+                width: 50%;
+                max-width: 800px;
+                min-width: 480px;
+                margin: 0 auto;
+            }
+
+            .form input[type="number"] {
+                width: 200px;
+            }
+
+            .lastResult {
+                color: white;
+                padding: 3px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Number guessing game</h1>
+
+        <p>We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We'll tell you
+            if your guess was too high or too low.</p>
+
+        <div class="form">
+            <label for="guessField">Enter a guess: </label>
+            <input type="number" min="1" max="100" required id="guessField" class="guessField">
+            <input type="submit" value="Submit guess" class="guessSubmit">
+        </div>
+
+        <div class="resultParas">
+            <p class="guesses"></p>
+            <p class="lastResult"></p>
+            <p class="lowOrHi"></p>
+        </div>
+
+        <script>
+            const guesses = document.querySelector('.guesses');
+            const lastResult = document.querySelector('.lastResult');
+            const lowOrHi = document.querySelector('.lowOrHi');
+            const guessSubmit = document.querySelector('.guessSubmit');
+            const guessField = document.querySelector('.guessField');
+            let resetButton;
+
+            const Play = (() => {
+                let turnCount;
+                let randomNumber;
+
+                class Play {
+                    constructor() {
+                        turnCount = 0;
+                        randomNumber = Math.floor(Math.random() * 100) + 1;
+                    }
+
+                    get turnCount() {
+                        return turnCount;
+                    }
+
+                    restartGame() {
+                        turnCount = 0;
+                        randomNumber = Math.floor(Math.random() * 100) + 1;
+                    }
+
+                    correct(num) {
+                        turnCount++;
+                        if (randomNumber === num) {
+                            return {
+                                restart: true,
+                                lastResultContent: 'Congratulations! You got it right!',
+                                lastResultColor: 'green',
+                                lowOrHiContent: '',
+                            };
+                        } else if (turnCount === 10) {
+                            return {
+                                restart: true,
+                                GO: true,
+                                lastResultContent: '!!!GAME OVER!!!',
+                                lastResultColor: 'black',
+                                lowOrHiContent: '',
+                                answer: randomNumber,
+                            };
+                        } else {
+                            let comparison = num < randomNumber ? 'too low' : 'too high';
+                            return {
+                                restart: false,
+                                lastGuessWasHigh: num < randomNumber,
+                                lastResultContent: 'Wrong!',
+                                lastResultColor: 'red',
+                                lowOrHiContent: `Last guess was ${comparison}!`,
+                            };
+                        }
+                    }
+                }
+
+                return Play;
+            })();
+
+            const game = new Play();
+
+
+            function checkGuess() {
+
+                if (isNaN(guessField.value)) {
+                    window.location.href('/');
+                }
+
+                const guessCount = game.turnCount;
+                const userGuess = Number(guessField.value);
+
+                if (guessCount === 0) {
+                    guesses.textContent = 'Previous guesses: ';
+                }
+
+                const check = game.correct(userGuess);
+                lastResult.textContent = check.lastResultContent;
+                lastResult.style.backgroundColor = check.lastResultColor;
+                lowOrHi.textContent = check.lowOrHiContent;
+
+                if (check.restart) {
+                    setGameOver();
+                    if(check.GO) {
+                        alert('answer: '+check.answer);
+                    }
+                    return;
+                } else {
+                    const guessElement = document.createElement('span');
+                    guessElement.textContent = userGuess + ' ';
+                    guessElement.style.color = check.lastGuessWasHigh ? 'blue' : 'red';
+                    guesses.appendChild(guessElement);
+                }
+                
+                guessField.value = '';
+                guessField.focus();
+            }
+
+            guessSubmit.addEventListener('click', checkGuess);
+
+            function setGameOver() {
+                guessField.disabled = true;
+                guessSubmit.disabled = true;
+                resetButton = document.createElement('button');
+                resetButton.textContent = 'Start new game';
+                document.body.appendChild(resetButton);
+                resetButton.addEventListener('click', resetGame);
+            }
+            function resetGame() {
+                const resetParas = document.querySelectorAll('.resultParas p');
+                for (const resetPara of resetParas) {
+                    resetPara.textContent = '';
+                }
+
+                resetButton.parentNode.removeChild(resetButton);
+                guessField.disabled = false;
+                guessSubmit.disabled = false;
+                guessField.value = '';
+                guessField.focus();
+                lastResult.style.backgroundColor = 'white';
+
+                game.restartGame();
+            }
+        </script>
+    </body>
+
+</html>
