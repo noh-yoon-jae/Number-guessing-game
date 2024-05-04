@@ -268,7 +268,10 @@
             turnCount = 0;
             randomNumber = Math.floor(Math.random() * 100) + 1;
           }
-          get turnCount() {
+          turnCount() {
+            if(turnCount >= 10) {
+              this.restartGame();
+            }
             return turnCount;
           }
           restartGame() {
