@@ -7,25 +7,101 @@
         <title>Number guessing game</title>
 
         <style>
-            html {
-                font-family: sans-serif;
-            }
-
-            body {
-                width: 50%;
-                max-width: 800px;
-                min-width: 480px;
-                margin: 0 auto;
-            }
-
-            .form input[type="number"] {
-                width: 200px;
-            }
-
-            .lastResult {
-                color: white;
-                padding: 3px;
-            }
+            
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+          }
+    
+          .container {
+            text-align: left;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+          }
+    
+          h1 {
+            color: #333;
+            margin-bottom: 20px;
+          }
+    
+          p {
+            color: #555;
+            margin-bottom: 20px;
+          }
+    
+          label {
+            font-weight: bold;
+          }
+    
+          input[type="number"] {
+            width: 60px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+          }
+    
+          .guessSubmit {
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+          }
+    
+          .guessSubmit:hover {
+            background-color: #2E2E2E;
+          }
+    
+          .resultParas {
+            margin-top: 20px;
+          }
+    
+          .resultParas p {
+            margin: 10px 0;
+            color: #333;
+            font-weight: bold;
+          }
+    
+          .lastResult {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+          }
+    
+          .lowOrHi {
+            font-style: italic;
+          }
+    
+          button {
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+          }
+    
+          button:hover {
+            background-color: #2E2E2E;
+          }
+          
         </style>
     </head>
 
