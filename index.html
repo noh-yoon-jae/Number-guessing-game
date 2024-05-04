@@ -319,6 +319,11 @@
         const guessCount = game.turnCount;
         const userGuess = Number(guessField.value);
 
+        if(userGuess > 100 || userGuess < 0) {
+          alert('Enter 1~100');
+          return;
+        }
+        
         if (guessCount === 0) {
           guesses.textContent = "Previous guesses: ";
         }
