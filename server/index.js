@@ -29,10 +29,7 @@ const Play = (() => {
       turnCount = 0;
       randomNumber = Math.floor(Math.random() * 100) + 1;
     }
-    turnCount() {
-      if(turnCount >= 10) {
-        this.restartGame();
-      }
+    get turnCount() {
       return turnCount;
     }
     restartGame() {
@@ -42,6 +39,12 @@ const Play = (() => {
     }
     correct(num) {
       turnCount++;
+      if (turnCount > 10) {
+        this.restartGame();
+        return {
+          massage: '?',
+        }
+      }
       if (randomNumber === num) {
         return {
           restart: true,
@@ -87,25 +90,25 @@ app.get('/', (req, res) => {
 });
 
 app.post('/correct', (req, res) => {
-  const token = req.cookies.userToken;
+  const { userToken } = req.cookies;
   const guess = req.body.userGuess;
-  const game = userSession[token];
+  const game = userSession[userToken];
   return res.json({
     status: true,
     gameData: {
-      turnCount: game.turnCount(),
+      turnCount: game.turnCount,
       corrent: game.correct(guess),
     }
   });
 });
 
 app.post('/restart', (req, res) => {
-  const token = req.cookies.userToken;
-  const game = userSession[token];
+  const { userToken } = req.cookies;
+  const game = userSession[userToken];
   return res.json({
     status: game.restartGame(),
   });
-})
+});
 
 app.get('*', (req, res) => {
   res.send('Not Found 404');
@@ -113,4 +116,4 @@ app.get('*', (req, res) => {
 
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-})
+});
