@@ -63,12 +63,7 @@
       .guessSubmit:hover {
         background-color: #2E2E2E;
       }
-      
-      .guessSubmit:disabled {
-        background-color: #999999;
-        pointer-events : none;
-      }
-      
+
       .resultParas {
         margin-top: 20px;
       }
@@ -204,7 +199,6 @@
       }
     </style>
   </head>
-
   <body>
     <div class="container">
       <h1>Number guessing game</h1>
@@ -233,7 +227,7 @@
       <div class="resetContainer">
         <button id="resetButton" style="display: none">Start new game</button>
       </div>
-      <footer class=" py-6 dark:bg-gray-800">
+      <footer class="py-6 dark:bg-gray-800">
         <div class="container-2 mx-auto flex flex-col items-center justify-center space-y-4 px-4 sm:flex-row sm:space-y-0 sm:space-x-6">
           <div class="flex items-center space-x-2">
             <a href="https://github.com/noh-yoon-jae/Number-guessing-game" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
@@ -250,13 +244,11 @@
               </svg>
             </a>
           </div>
-          <p class="text-sm text-gray-500 dark:text-gray-400">© 2024 noh-yoon-jae. All rights reserved.</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400">© 2024 Your Company. All rights reserved.</p>
         </div>
       </footer>
-
     </div>
     <script>
-
       const guesses = document.querySelector(".guesses");
       const lastResult = document.querySelector(".lastResult");
       const lowOrHi = document.querySelector(".lowOrHi");
@@ -273,10 +265,7 @@
             turnCount = 0;
             randomNumber = Math.floor(Math.random() * 100) + 1;
           }
-          turnCount() {
-            if(turnCount > 10) {
-              this.restartGame();
-            }
+          get turnCount() {
             return turnCount;
           }
           restartGame() {
@@ -285,8 +274,9 @@
           }
           correct(num) {
             turnCount++;
-            if(turnCount > 10) {
-              this.restartGame();
+            if (turnCount > 10) {
+              console.log('?');
+              return this.restartGame();
             }
             if (randomNumber === num) {
               return {
@@ -295,7 +285,7 @@
                 lastResultColor: "green",
                 lowOrHiContent: "",
               };
-            } else if (turnCount >= 10) {
+            } else if (turnCount === 10) {
               return {
                 restart: true,
                 GO: true,
@@ -322,7 +312,7 @@
       const game = new Play();
 
       function checkGuess() {
-
+        
         if (isNaN(guessField.value)) {
           window.location.href("/");
         }
@@ -334,12 +324,13 @@
           alert('Enter 1~100');
           return;
         }
-        
+
         if (guessCount === 0) {
           guesses.textContent = "Previous guesses: ";
         }
 
         const check = game.correct(userGuess);
+
         lastResult.textContent = check.lastResultContent;
         lastResult.style.backgroundColor = check.lastResultColor;
         lowOrHi.textContent = check.lowOrHiContent;
@@ -386,7 +377,6 @@
         lastResult.style.backgroundColor = "white";
         game.restartGame();
       }
-
     </script>
   </body>
 </html>
